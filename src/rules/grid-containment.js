@@ -25,11 +25,12 @@ HTMLHint.addRule({
 
               if(attrName === 'class') {
                 isRow = rowRegex.test(attrValue);
-
-                if(isInRow() && !colRegex.test(attrValue)) {
-                  reporter.warn('The <div class="row"> tag can only contain col-*-* classes.', event.line, event.col, self, event.raw);
-                }
               }
+          }
+
+          if(!isRow && isInRow() && !colRegex.test(attrValue)) {
+            reporter.warn('The <div class="row"> tag can only contain col-*-* classes.',
+              event.line, event.col, self, event.raw);
           }
 
           stack.push({
@@ -40,7 +41,7 @@ HTMLHint.addRule({
           });
       }
 
-      function onTagEnd() {
+      function onTagEnd() {          
           stack.pop();
       }
 
